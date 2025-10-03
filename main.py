@@ -35,7 +35,7 @@ def read_data(filename):
     """
     with open(filename, mode='r', encoding="utf8") as f:
         mots = f.readlines()
-    return [ mot.strip() for mot in mots ]
+    return [ mot.strip('\n') for mot in mots ]
 
 
 def ensemble_mots(filename):
@@ -192,7 +192,7 @@ def cherche2(ensemble_mots, lstart, lmid, lstop, nmin, nmax):
         # Vérifier la longueur du mot
         if nmin <= len(mot) <= nmax:
             # Si lstart est vide, on accepte tous les mots, sinon on vérifie
-            if not lstart or any(mot.startswith(start) for start in lstart):
+            if len(lstart)==0 or any(mot.startswith(start) for start in lstart):
                 # Si lmid est vide, on accepte tous les mots, sinon on vérifie au milieu
                 if not lmid or any(mid in mot[1:-1] for mid in lmid):
                     # Si lstop est vide, on accepte tous les mots, sinon on vérifie la fin
@@ -206,14 +206,13 @@ def cherche2(ensemble_mots, lstart, lmid, lstop, nmin, nmax):
 
 
 def main():
-    pass
-    # mots = read_data(FILENAME)
-    # print( [ mots[i] for i in [24499, 28281, 57305, 118091, 199316, 223435, 336455] ] )
+    mots = read_data(FILENAME)
+    print( [ mots[i] for i in [24499, 28281, 57305, 118091, 199316, 223435, 336455] ] )
     ens = ensemble_mots(FILENAME)
-    # print( [ mot for mot in ["chronophage", "procrastinateur", "dangerosité", "gratifiant"] if mot in ens ] )
-    m17 = mots_de_n_lettres(ens, 17)
-    print(len(m17))
-    print( random.sample(list(m17), 10) )
+    print( [ mot for mot in ["chronophage", "procrastinateur", "dangerosité", "gratifiant"] if mot in ens ] )
+    #m17 = mots_de_n_lettres(ens, 17)
+    #print(len(m17))
+    #print( random.sample(list(m17), 10) )
     # mk = mots_avec(ens, 'k')
     # print(len(mk))
     # print( random.sample(list(mk), 5) )
@@ -224,10 +223,10 @@ def main():
     # print(mz14)
     # m21z = cherche1(ens, '', 'z', 21)
     # print(m21z)
-    mab17ez = mots_avec(cherche1(ens, 'sur', 'ons', 17), 'x')
-    print(mab17ez)
-    res = cherche2(ens, VOYELLES, [], CONSONNES, 21, 21)
-    print(res)
+    #mab17ez = mots_avec(cherche1(ens, 'sur', 'ons', 17), 'x')
+    #print(mab17ez)
+    #res = cherche2(ens, VOYELLES, [], CONSONNES, 21, 21)
+    #print(res)
 
 
 
@@ -321,7 +320,3 @@ if __name__ == "__main__":
 
 # if __name__ == "__main__":
 #     main()
-    
-
-
-
